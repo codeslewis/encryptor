@@ -13,10 +13,10 @@ public class Main {
         return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 
-    private static void writeOutput(encryptdecrypt.Arguments arguments, String message, encryptdecrypt.Alg algorithm) {
-        encryptdecrypt.Cipher cipher = algorithm == encryptdecrypt.Alg.SHIFT ?
-                new encryptdecrypt.ShiftCipher(message) : new encryptdecrypt.UnicodeCipher(message);
-        char[] data = arguments.getOperation() == encryptdecrypt.Mode.ENCRYPT ?
+    private static void writeOutput(Arguments arguments, String message, Alg algorithm) {
+        Cipher cipher = algorithm == Alg.SHIFT ?
+                new ShiftCipher(message) : new UnicodeCipher(message);
+        char[] data = arguments.getOperation() == Mode.ENCRYPT ?
                 cipher.encrypt(arguments.getKey()) : cipher.decrypt(arguments.getKey());
         if (!arguments.isOut()) {
             for (char character : data) {
@@ -36,7 +36,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        encryptdecrypt.Arguments argObj = encryptdecrypt.Arguments.of(args);
+        Arguments argObj = Arguments.of(args);
         Optional<String> input = Optional.empty();
 
         if (!argObj.isData()) {
