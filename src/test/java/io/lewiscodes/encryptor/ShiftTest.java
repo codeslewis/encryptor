@@ -46,7 +46,7 @@ public class ShiftTest {
       int key = 5;
       String testData = "fghi";
       Cipher shift = new ShiftCipher(testData);
-      String result = String.valueOf(shift.encrypt(key));
+      String result = String.valueOf(shift.decrypt(key));
       String expected = "abcd";
       assertEquals(expected, result, 
         "Test failed for Shift encryption of standard chars"
@@ -58,7 +58,7 @@ public class ShiftTest {
       int key = 5;
       String testData = "zabcd";
       Cipher shift = new ShiftCipher(testData);
-      String result = String.valueOf(shift.encrypt(key));
+      String result = String.valueOf(shift.decrypt(key));
       String expected = "uvwxy";
       assertEquals(expected, result, 
         "Test failed for Shift encryption of chars at end of circle"
@@ -68,9 +68,9 @@ public class ShiftTest {
     @Test
     public void ignoresNonLetterCharsDecryptionTest() {
       int key = 5;
-      String testData = "za b$ cd";
+      String testData = "za b$ cd!";
       Cipher shift = new ShiftCipher(testData);
-      String result = String.valueOf(shift.encrypt(key));
+      String result = String.valueOf(shift.decrypt(key));
       String expected = "uv w$ xy!";
       assertEquals(expected, result, 
         "Test failed for Shift encryption ignoring non letter chars: " + result
