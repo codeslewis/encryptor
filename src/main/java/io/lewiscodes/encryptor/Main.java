@@ -9,8 +9,21 @@ import java.util.Optional;
 
 public class Main {
 
-    private static String readFileAsString(String fileName) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(fileName)));
+    public static void main(String[] args) {
+        Arguments argObj = Arguments.parse(args);
+        Optional<String> input = Optional.empty();
+
+        if (!argObj.isData()) {
+            // read data from file
+            try {
+                input = Optional.of(readFileAsString(argObj.getFileNameIn()));
+            } catch (IOException e) {
+                System.out.println("Message could not be parsed from File");
+            }
+        } else {
+            input = Optional.of(argObj.getMessage());
+        }
+        input.ifPresent(s -> writeOutput(argObj, s, argObj.getEncryptionAlgorithm()));
     }
 
     private static void writeOutput(Arguments arguments, String message, Alg algorithm) {
@@ -33,22 +46,9 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Arguments argObj = Arguments.of(args);
-        Optional<String> input = Optional.empty();
-
-        if (!argObj.isData()) {
-            // read data from file
-            try {
-                input = Optional.of(readFileAsString(argObj.getFileNameIn()));
-            } catch (IOException e) {
-                System.out.println("Message could not be parsed from File");
-            }
-        } else {
-            input = Optional.of(argObj.getMessage());
-        }
-        input.ifPresent(s -> writeOutput(argObj, s, argObj.getEncryptionAlgorithm()));
+    }    
+    
+    private static String readFileAsString(String fileName) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 }

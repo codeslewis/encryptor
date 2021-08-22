@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ShiftTest {
+  // Encryption Tests
     @Test
     public void standardCharEncryptionTest() {
       int key = 5;
@@ -41,6 +42,7 @@ public class ShiftTest {
       );
     }
     
+    // Decryption Tests
     @Test
     public void standardCharDecryptionTest() {
       int key = 5;

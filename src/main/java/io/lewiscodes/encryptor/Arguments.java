@@ -15,7 +15,7 @@ public class Arguments {
         encryptionAlgorithm = Alg.SHIFT;
     }
 
-    public static Arguments of(String[] args) {
+    public static Arguments parse(String[] args) {
         Arguments argObj = new Arguments();
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
